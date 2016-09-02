@@ -14,11 +14,14 @@ namespace RandomArrayGeneratorTest
         [TestMethod]
         public void GenerateArrayDistinctTest()
         {
-            List<int> list = generator.GenerateArray(10000);
+            int maxValue = 10000;
+            int minValue = 1;
+
+            List<int> list = generator.GenerateArray(maxValue);
 
             Assert.IsTrue(list.Distinct().Count() == list.Count());
-            Assert.AreEqual(list.Min(), 1);
-            Assert.AreEqual(list.Max(), 10000);
+            Assert.AreEqual(list.Min(), minValue);
+            Assert.AreEqual(list.Max(), maxValue);
         }
 
         // check whether the randomizer is well-distributed
@@ -27,6 +30,7 @@ namespace RandomArrayGeneratorTest
         {
             int arrayLength = 100;
             int iterationsNumber = 10000;
+            double delta = 0.001;
 
             // matrix which represents numbers and all possible positions in a list
             List<List<int>> test = new List<List<int>>();
@@ -52,7 +56,7 @@ namespace RandomArrayGeneratorTest
             {
                 foreach (var j in i)
                 {
-                    Assert.AreEqual(probability, j / (double)iterationsNumber, 0.001);
+                    Assert.AreEqual(probability, j / (double)iterationsNumber, delta);
                 }
             }
         }
